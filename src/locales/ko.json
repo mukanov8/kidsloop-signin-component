@@ -1,0 +1,12 @@
+{
+  "signin": "로그인",
+  "email_or_phone": "이메일 또는 헨드폰 반호",
+  "password": "비밀번호",
+  "forgot_password": "비밀번호 찾기",
+  "create_account": "회원 가입하기",
+  "help": "도움",
+  "privacy": "개인정보 보호",
+  "terms": "이용약관",
+  "select_language": "언어 선택",
+  "invalid_login": "이메일 주소 혹은 휴대폰 번호의 형식이 올바르지 않습니다"
+}

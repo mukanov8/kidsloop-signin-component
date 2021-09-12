@@ -1,0 +1,12 @@
+{
+  "signin": "Sign In",
+  "email_or_phone": "Email or Phone",
+  "password": "Password",
+  "forgot_password": "Forgot Password",
+  "create_account": "Create an account",
+  "help": "Help",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "select_language": "Select language",
+  "invalid_login": "You didn't enter a valid email/phone number"
+}

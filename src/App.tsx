@@ -1,26 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Signin from './components/Signin'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="md:bg-kidsloop dark:bg-gray-800 md:dark:bg-gray-600 bg-center w-screen h-screen flex justify-center items-center flex-col"
+      data-testid="app"
+    >
+      <Signin />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
