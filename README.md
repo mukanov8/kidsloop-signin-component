@@ -1,4 +1,4 @@
-# kidsloop signin component
+# Kidsloop Signin Component
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1e8d2799-3bdf-4154-9bec-b1757280225e/deploy-status)](https://app.netlify.com/sites/kidsloop-signin/deploys)
 

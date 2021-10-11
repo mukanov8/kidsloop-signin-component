@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import ModeToggle from '../components/ModeToggle'
 import LocaleSelect from '../components/LocaleSelect'
+import ErrorMessage from '../components/ErrorMessage'
+import { userLogin } from '../utils/mockApi'
 import useTranslation from '../hooks/useTranslation'
 import KidsloopLogo from '../assets/kidsloop_min_logo.svg'
 import classnames from 'classnames'
@@ -8,6 +10,8 @@ import classnames from 'classnames'
 const Signin = () => {
   const { translate } = useTranslation()
 
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     user: {
       login: '',
@@ -50,11 +54,41 @@ const Signin = () => {
     }
   }
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     validateInput()
+    setIsLoading(true)
     console.log(formData.user)
+    try {
+      await userLogin(formData.user.login, formData.user.password)
+      setIsLoading(false)
+    } catch {
+      alert('Invalid username or password')
+      // setError('Invalid username or password')
+      setIsLoading(false)
+      setFormData({
+        user: {
+          ...formData.user,
+          login: '',
+          password: '',
+        },
+      })
+    }
   }
+
+  // const handleSubmit = async event => {
+  //   event.preventDefault();
+  //   setIsLoading(true)
+  //   try {
+  //     await userLogin({ email, password });
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setError('Invalid username or password');
+  //     setIsLoading(false);
+  //     setEmail('');
+  //     setPassword('');
+  //   }
+  // };
 
   return (
     <>
@@ -71,12 +105,8 @@ const Signin = () => {
             {translate('signin')}
           </h4>
 
-          <form
-            className="space-y-4 p-4"
-            // action="#"
-            // method="POST"
-            onSubmit={handleFormSubmit}
-          >
+          <form className="space-y-4 p-4" onSubmit={handleFormSubmit}>
+            {error && <ErrorMessage message={error} />}
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div className="mb-3">
@@ -137,7 +167,11 @@ const Signin = () => {
               </a>
               <button
                 type="submit"
-                className="py-2 px-7 rounded-large border-0 text-sm font-semibold text-white bg-primaryblue hover:bg-navyblue transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl dark:bg-lightblue dark:hover:bg-primaryblue"
+                className={classnames(
+                  'py-2 px-7 rounded-large border-0 text-sm font-semibold text-white bg-primaryblue hover:bg-navyblue transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl dark:bg-lightblue dark:hover:bg-primaryblue',
+                  { 'cursor-not-allowed opacity-50': isLoading }
+                )}
+                disabled={isLoading}
               >
                 {translate('signin')}
               </button>
@@ -179,6 +213,11 @@ const Signin = () => {
           </a>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden opacity-75 flex flex-col items-center justify-center pointer-events-none">
+          <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+        </div>
+      )}
     </>
   )
 }
